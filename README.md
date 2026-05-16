@@ -958,3 +958,84 @@ document.getElementById('switchBtn').addEventListener('click', toggleLight);
 ```
 
 
+```markdown
+---
+
+## 11. Таймеры — отложенный запуск кода (setTimeout)
+
+Иногда нужно, чтобы код выполнился не сразу, а через какое-то время. Например, показать уведомление, которое само исчезнет через пару секунд. Для этого есть `setTimeout`.
+
+**Синтаксис:**
+```js
+setTimeout(функция, задержка_в_миллисекундах);
+```
+*1000 миллисекунд = 1 секунда*
+
+### Пример: сообщение, которое исчезает само
+
+Нажимаешь на кнопку — появляется надпись, а через 2 секунды она пропадает.
+
+**index.html**
+```html
+<button id="notifyBtn">Показать уведомление</button>
+<p id="notification"></p>
+```
+
+**style.css**
+```css
+#notification {
+  color: darkorange;
+  font-weight: bold;
+  margin-top: 10px;
+  min-height: 20px;
+}
+```
+
+**script.js**
+```js
+function showNotification() {
+  const notification = document.getElementById('notification');
+  notification.textContent = 'Это сообщение исчезнет через 2 секунды...';
+
+  setTimeout(function() {
+    notification.textContent = '';
+  }, 2000);   // 2000 миллисекунд = 2 секунды
+}
+
+document.getElementById('notifyBtn').addEventListener('click', showNotification);
+```
+
+**Что здесь происходит:**
+- При клике на кнопку в абзац записывается текст.
+- `setTimeout` получает функцию и число `2000`. Он ждёт 2 секунды, а потом выполняет эту функцию.
+- Внутри функции мы просто стираем текст (`textContent = ''`).
+- Пользователь видит сообщение, а через 2 секунды оно само исчезает.
+
+---
+
+### Ещё пример: отложенное приветствие
+
+Можно поприветствовать пользователя не сразу, а через пару секунд, как будто страница «подумала».
+
+```js
+setTimeout(function() {
+  alert('Привет! Ты на странице уже 3 секунды!');
+}, 3000);
+```
+
+*Если вставить этот код просто в script.js (вне всяких функций), он выполнится один раз через 3 секунды после загрузки страницы.*
+
+### Как передать свою функцию
+
+Можно передать уже готовую функцию по имени (без скобок!):
+
+```js
+function disappear() {
+  document.getElementById('notification').textContent = '';
+}
+
+setTimeout(disappear, 1500);   // через 1.5 секунды вызовется disappear
+```
+
+*Запомни: `setTimeout(disappear, 1500)` — правильно. `setTimeout(disappear(), 1500)` — неправильно, функция вызовется сразу.*
+```
