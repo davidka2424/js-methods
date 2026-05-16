@@ -512,18 +512,6 @@ body {
 ---
 
 
-
-## ✨ Шпаргалка по горячим клавишам в редакторе (VS Code)
-
-- `Ctrl + S` — сохранить файл (делай это часто!)
-- `Ctrl + Z` — отменить последнее действие
-- `Ctrl + /` — закомментировать строку
-- `Alt + стрелка вверх/вниз` — передвинуть строку
-- `Ctrl + D` — выделить следующее такое же слово
-- Напиши `!` и нажми `Tab` — появится заготовка HTML-страницы
-```
-```
-
 ## 1. Самая первая заготовка
 Эти три файла — твой чистый лист. С них можно начинать любой пример или свой проект.
 
@@ -846,10 +834,129 @@ heroBtn.addEventListener('click', createHero);
 
 ---
 
-## А теперь собери свой проект!
-Ты вспомнил все основные инструменты. Теперь ты можешь:
-- взять заготовку из первого примера,
-- добавить на страницу свои кнопки, поля ввода и блоки,
-- скопировать нужные кусочки JavaScript и подправить их под свою идею.
+```markdown
+---
+
+## 9. Форма приветствия (получаем имя пользователя)
+
+Простая форма: пользователь вводит имя, нажимает кнопку — появляется персональное приветствие. Минимум стилей, вся магия в JavaScript.
+
+**index.html**
+```html
+<h2>Как тебя зовут?</h2>
+<input type="text" id="nameInput" placeholder="Введи имя">
+<button id="greetBtn">Поздороваться</button>
+<p id="greeting"></p>
+```
+
+**style.css**
+```css
+#nameInput {
+  padding: 8px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+#greeting {
+  font-weight: bold;
+  margin-top: 10px;
+  color: seagreen;
+}
+```
+
+**script.js**
+```js
+function greetUser() {
+  const nameInput = document.getElementById('nameInput');
+  const greetingElement = document.getElementById('greeting');
+  const userName = nameInput.value.trim();
+
+  if (userName === '') {
+    greetingElement.textContent = 'Эй, ты забыл представиться!';
+    greetingElement.style.color = 'crimson';
+  } else {
+    greetingElement.textContent = 'Привет, ' + userName + '! Рад тебя видеть!';
+    greetingElement.style.color = 'seagreen';
+  }
+}
+
+document.getElementById('greetBtn').addEventListener('click', greetUser);
+```
+
+**Что здесь происходит:**
+- `input.value` забирает то, что пользователь напечатал в поле.
+- `.trim()` убирает лишние пробелы в начале и в конце (вдруг случайно нажали).
+- `if (userName === '')` — проверка: если поле осталось пустым, показываем предупреждение красным цветом.
+- Иначе выводим приветствие с именем пользователя, которое склеиваем через `+`.
+- Попутно меняем цвет текста через `.style.color` в зависимости от ситуации.
+
+---
+
+## 10. Кнопка-переключалка (меняем текст над кнопкой)
+
+Нажимаешь на кнопку — заголовок над ней меняется. Нажмёшь ещё раз — возвращается обратно. Учимся использовать флаг (переменную-переключатель) и условный оператор.
+
+**index.html**
+```html
+<h2 id="switchTitle">Свет включён</h2>
+<button id="switchBtn">Выключить свет</button>
+```
+
+**style.css**
+```css
+#switchTitle {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+#switchBtn {
+  padding: 10px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: darkorange;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#switchBtn:hover {
+  background-color: chocolate;
+}
+```
+
+**script.js**
+```js
+let lightOn = true;   // флаг: true — свет горит, false — выключен
+
+function toggleLight() {
+  const title = document.getElementById('switchTitle');
+  const button = document.getElementById('switchBtn');
+
+  if (lightOn) {
+    title.textContent = 'Свет выключен';
+    button.textContent = 'Включить свет';
+    lightOn = false;
+  } else {
+    title.textContent = 'Свет включён';
+    button.textContent = 'Выключить свет';
+    lightOn = true;
+  }
+}
+
+document.getElementById('switchBtn').addEventListener('click', toggleLight);
+```
+
+**Что здесь происходит:**
+- `let lightOn = true;` — создаём переменную-флаг, которая помнит текущее состояние (горит свет или нет). Она живёт снаружи функции, чтобы не обнуляться при каждом клике.
+- Внутри функции проверяем флаг через `if (lightOn)`.
+- Если свет горит — меняем заголовок на «Свет выключен», а текст кнопки на «Включить свет», и переключаем флаг в `false`.
+- Если свет выключен — делаем всё наоборот.
+- `button.textContent = ...` меняет текст прямо на кнопке. Это работает точно так же, как с абзацами и заголовками.
+```
+
+Теперь у тебя в методичке 10 примеров, охватывающих все пройденные темы, и два финальных — форма и кнопка-переключалка — показывают, как собирать изученные приёмы вместе в реальных ситуациях. Можешь смело загружать на GitHub!
 
 
